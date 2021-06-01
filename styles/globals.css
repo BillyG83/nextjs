@@ -1,7 +1,35 @@
-html,
-body {
+:root {
+  --black: #313131;
+  --bug: #A8B820;
+  --dark: #705848;
+  --dragon: #7038F8; 
+  --electric: #F8D030;
+  --fairy: #EE99AC;
+  --fighting: #C03028;
+  --fire: #dc6713;
+  --flying: #A890F0;
+  --ghost: #705898;
+  --grass: #78C850;
+  --ground: #c2a24b;
+  --ice: #98D8D8;
+  --normal: #A8A878;
+  --physic: #F85888;
+  --poison: #A040A0;
+  --rock: #B8A038;
+  --steel: #B8B8D0;
+  --water: #6890F0;
+  --white: #ffffff;
+}
+
+
+* {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html,
+body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -11,6 +39,26 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+ul, ol, li {
+  list-style: none;
+}
+
+button {
+  background-color: var(--water);
+  border-radius: 2px;
+  border: none;
+  color: var(--white);
+  font-weight: bold;
+  outline: none;
+  padding: 5px;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 0 0 -2px rgba(0,0,0,0);
+  filter: grayscale(20%);
+}
+
+button:active,
+button:hover {
+  filter: grayscale(0%);
+  box-shadow: 0 3px 3px -2px rgba(0,0,0,0.2);
+  padding: 5px 7px;
 }
