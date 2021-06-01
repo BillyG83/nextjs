@@ -6,72 +6,78 @@ import Image from 'next/image'
 import mockApiSuccessfulCall from './dummyData.js'
 
 export default function Pokemon({ pokeData }) {
-    console.log(pokeData);
-    const router = useRouter()
-    const { pokemon } = router.query
-    
-    return (
-        <div>
-            <Head>
-                {/* SEO meta */}
-                <title>
-                    {pokemon}, a {pokeData.types[0].type.name} type Pokemon, is number {pokeData.order} in the Pokedex
-                </title>
-                <meta name='description' content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
+	console.log(pokeData);
+	const router = useRouter()
+	const { pokemon } = router.query
 
-                {/* Social meta */}
-                <meta property="og:title" content={`Hey! Checkout ${pokemon}, a ${pokeData.types[0].type.name} type Pokemon, is number ${pokeData.order} in the Pokedex`} />
-                <meta property="og:description" content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
-                <meta property="og:type" content="profile" />
-                <meta property="og:url" content={`/pokemon/${router.query}`} />
-                <meta property="og:image" content={pokeData.sprites.front_default} />
+	const myLoader = function() {
+		return `${pokeData.sprites.front_default}?w=250px&q=100`
+	}
+	
+	return (
+		<div>
+			<Head>
+				{/* SEO meta */}
+				<title>
+					{pokemon}, a {pokeData.types[0].type.name} type Pokemon, is number {pokeData.order} in the Pokedex
+				</title>
+				<meta name='description' content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
 
-                {/* Twitter meta */}
-                <meta name="twitter:title" content={`Hey! Checkout ${pokemon}, a ${pokeData.types[0].type.name} type Pokemon, is number ${pokeData.order} in the Pokedex`} />
-                <meta property="twitter:description" content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
-                <meta property="twitter:url" content={`/pokemon/${router.query}`} />
-                <meta property="twitter:image" content={pokeData.sprites.front_default} />
-            </Head>
-            
-            <h1>I caught { pokemon }</h1>
-            <Image 
-                src={pokeData.sprites.front_default} 
-                alt={`${pokemon}, a ${pokeData.types[0].type.name} type Pokemon`} 
-                width={250} 
-                height={250} 
-            />
-            <h2>{pokemon} is {pokeData.order} in the Pokedex</h2>
+				{/* Social meta */}
+				<meta property="og:title" content={`Hey! Checkout ${pokemon}, a ${pokeData.types[0].type.name} type Pokemon, is number ${pokeData.order} in the Pokedex`} />
+				<meta property="og:description" content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
+				<meta property="og:type" content="profile" />
+				<meta property="og:url" content={`/pokemon/${router.query}`} />
+				<meta property="og:image" content={pokeData.sprites.front_default} />
 
-            <h3>Types</h3>
-            {
-                pokeData.types.map((type, i) => {
-                    return <span key={i}>{type.type.name} </span>
-                })
-            }
+				{/* Twitter meta */}
+				<meta name="twitter:title" content={`Hey! Checkout ${pokemon}, a ${pokeData.types[0].type.name} type Pokemon, is number ${pokeData.order} in the Pokedex`} />
+				<meta property="twitter:description" content={`Welcome to the online Pokedex page for ${pokemon}. Here you can find out lots of cool information about this and your other favorite Pokemon`} />
+				<meta property="twitter:url" content={`/pokemon/${router.query}`} />
+				<meta property="twitter:image" content={pokeData.sprites.front_default} />
+			</Head>
+			
+			<h1>I caught { pokemon }</h1>
+			<Image 
+				src='/img/loading.gif' 
+				loader={myLoader}
+				alt={`${pokemon}, a ${pokeData.types[0].type.name} type Pokemon`} 
+				width={250} 
+				height={250}
+				layout="intrinsic"
+			/>
+			<h2>{pokemon} is No.{pokeData.order} in the Pokedex</h2>
 
-            <h3>Info</h3>
-            <ul>
-                <li>Base XP: {pokeData.base_experience}</li>
-                <li>height: {pokeData.height / 10}meters</li>
-                <li>weight: {pokeData.weight / 10}Kilograms</li>
-                <li>Total moves: {pokeData.moves.length}</li>
-            </ul>
+			<h3>Types</h3>
+			{
+				pokeData.types.map((type, i) => {
+					return <span key={i}>{type.type.name} </span>
+				})
+			}
 
-            <h3>Stats</h3>
-            <ul>
-                {
-                    pokeData.stats.map((stat, i) => {
-                        return (
-                            <li key={i}>
-                                {stat.stat.name.replace(/-/g, " ")} = {stat.base_stat}
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-            
-        </div>
-    )
+			<h3>Info</h3>
+			<ul>
+				<li>Base XP: {pokeData.base_experience}</li>
+				<li>height: {pokeData.height / 10}meters</li>
+				<li>weight: {pokeData.weight / 10}Kilograms</li>
+				<li>Total moves: {pokeData.moves.length}</li>
+			</ul>
+
+			<h3>Stats</h3>
+			<ul>
+				{
+					pokeData.stats.map((stat, i) => {
+						return (
+							<li key={i}>
+								{stat.stat.name.replace(/-/g, " ")} = {stat.base_stat}
+							</li>
+						)
+					})
+				}
+			</ul>
+				
+		</div>
+	)
 }
 
 export async function getStaticProps({ params }) {
