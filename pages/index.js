@@ -1,7 +1,15 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const router = useRouter()
+  
+  const handleClick = function(event) {
+    event.preventDefault()
+    if(!event.target.id) return
+    if(event.target.id = "start-pokedex") router.push('/pokemon')
+  }
 
   return (
     <div className={styles.container}>
@@ -13,7 +21,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Pokedex Fun with Next JS</h1>
-        <h2>Click to enter</h2>
+        <button 
+          alt="click to view the online Pokedex" 
+          id="start-pokedex"
+          onClick={handleClick} 
+          type="button"
+        >
+          Click to enter
+        </button>
       </main>
 
       <footer className={styles.footer}>
